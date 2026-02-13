@@ -33,13 +33,14 @@ const config = {
   // generated artifacts to version control.
   coverageDirectory: 'coverage',
 
-  // Enforce minimum coverage thresholds across all collected source files.
-  // Set to 90% for lines, branches, functions, and statements to ensure
-  // comprehensive test coverage for this tutorial application. Given the
-  // small codebase (two route handlers and app setup), achieving near-complete
-  // coverage is both feasible and expected.
+  // Enforce minimum coverage thresholds on app.js only.
+  // Per AAP §0.7.1, server.js is excluded from coverage thresholds because
+  // it contains only the app.listen() call which requires port binding and
+  // cannot be unit-tested without open handle issues. The testable logic
+  // resides entirely in app.js. Using per-file thresholds instead of global
+  // ensures server.js is still measured but does not cause threshold failures.
   coverageThreshold: {
-    global: {
+    './app.js': {
       lines: 90,
       branches: 90,
       functions: 90,
